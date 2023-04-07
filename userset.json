@@ -1,0 +1,17 @@
+{
+    "source_dir_path": "/mnt/temp/final",
+    "final_dirs": [
+        {
+            "path": "/mnt/okchia/070/new",
+            "size": 16.0
+        },
+        {
+            "path": "/mnt/okchia/071/new",
+            "size": 16.0
+        },
+        {
+            "path": "/mnt/okchia/072/new",
+            "size": 16.0
+        }
+    ]
+}

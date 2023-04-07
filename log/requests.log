@@ -1,0 +1,65 @@
+[2023-04-06 19:44:40 ERROR] - Test error
+[2023-04-06 19:44:55 DEBUG] - Test debug
+[2023-04-06 19:44:55 ERROR] - Test error
+[2023-04-06 19:44:55 INFO] - Test Info
+[2023-04-06 19:44:55 WARN] - Test warn
+[2023-04-06 21:24:17 INFO] - UserSet { source_dir_path: "/mnt/temp/final", new_plot_size: Size { max_size: 71.4, min_size: 71.2 }, final_dirs: [FinalDir { path: "/mnt/okchia/070/new", allow_max_plots_num: 208 }, FinalDir { path: "/mnt/okchia/071/new", allow_max_plots_num: 208 }, FinalDir { path: "/mnt/okchia/072/new", allow_max_plots_num: 208 }] }
+[2023-04-06 21:31:08 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", allow_max_plots_num: 208 }, FinalDir { path: "/mnt/okchia/071/new", allow_max_plots_num: 208 }, FinalDir { path: "/mnt/okchia/072/new", allow_max_plots_num: 208 }] }
+[2023-04-06 23:36:58 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-06 23:38:29 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-06 23:38:29 INFO] - 等来了第一张图：plot-k32-c1-2023-04-05-20-17-08b4cd8cba3e40fad4690a10926b255c64683b17cfbda2b3144c006c015081e6.plot
+[2023-04-06 23:38:29 INFO] - 得到了第一张图的大小为84.25242
+[2023-04-06 23:38:30 INFO] - /mnt/okchia/070/new:完成清理temp文件
+[2023-04-06 23:38:36 INFO] - /mnt/okchia/070/new:存在新图0张，文件占用总空间为：14765.713GB
+[2023-04-06 23:38:36 INFO] - /mnt/okchia/070/new:计算剩余空间为135.44824
+[2023-04-06 23:38:37 INFO] - /mnt/okchia/071/new:完成清理temp文件
+[2023-04-06 23:38:44 INFO] - /mnt/okchia/071/new:存在新图0张，文件占用总空间为：14865.808GB
+[2023-04-06 23:38:44 INFO] - /mnt/okchia/071/new:计算剩余空间为35.353516
+[2023-04-06 23:38:45 INFO] - /mnt/okchia/072/new:完成清理temp文件
+[2023-04-06 23:38:53 INFO] - /mnt/okchia/072/new:存在新图1张，文件占用总空间为：14878.42GB
+[2023-04-06 23:38:53 INFO] - /mnt/okchia/072/new:计算剩余空间为22.74121
+[2023-04-06 23:43:33 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-06 23:43:33 INFO] - 等来了第一张图：plot-k32-c1-2023-04-05-20-17-08b4cd8cba3e40fad4690a10926b255c64683b17cfbda2b3144c006c015081e6.plot
+[2023-04-06 23:43:33 INFO] - 得到了第一张图的大小为84.25242
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/070/new:完成清理temp文件
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/070/new:存在新图0张，文件占用总空间为：14765.713GB
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/070/new:计算剩余空间为135.44824
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/071/new:完成清理temp文件
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/071/new:存在新图0张，文件占用总空间为：14865.808GB
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/071/new:计算剩余空间为35.353516
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/072/new:完成清理temp文件
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/072/new:存在新图1张，文件占用总空间为：14878.42GB
+[2023-04-06 23:43:33 INFO] - /mnt/okchia/072/new:计算剩余空间为22.74121
+[2023-04-06 23:44:36 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-06 23:44:36 INFO] - 等来了第一张图：plot-k32-c1-2023-04-05-20-17-08b4cd8cba3e40fad4690a10926b255c64683b17cfbda2b3144c006c015081e6.plot
+[2023-04-06 23:44:36 INFO] - 得到了第一张图的大小为84.25242
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/070/new:完成清理temp文件
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/070/new:存在新图0张，文件占用总空间为：14765.713GB
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/070/new:计算剩余空间为135.44824
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/071/new:完成清理temp文件
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/071/new:存在新图0张，文件占用总空间为：14865.808GB
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/071/new:计算剩余空间为35.353516
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/072/new:完成清理temp文件
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/072/new:存在新图1张，文件占用总空间为：14878.42GB
+[2023-04-06 23:44:36 INFO] - /mnt/okchia/072/new:计算剩余空间为22.74121
+[2023-04-06 23:54:58 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-06 23:54:58 INFO] - 等来了第一张图：plot-k32-c1-2023-04-05-20-17-08b4cd8cba3e40fad4690a10926b255c64683b17cfbda2b3144c006c015081e6.plot
+[2023-04-06 23:54:58 INFO] - 得到了第一张图的大小为84.25242
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/070/new:完成清理temp文件
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/070/new:存在新图0张，文件占用总空间为：14765.713GB
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/070/new:计算剩余空间为135.44824
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/071/new:完成清理temp文件
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/071/new:存在新图0张，文件占用总空间为：14865.808GB
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/071/new:计算剩余空间为35.353516
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/072/new:完成清理temp文件
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/072/new:存在新图1张，文件占用总空间为：14878.42GB
+[2023-04-06 23:54:58 INFO] - /mnt/okchia/072/new:计算剩余空间为22.74121
+[2023-04-07 00:00:22 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-07 00:00:22 INFO] - 等来了第一张图：plot-k32-c1-2023-04-05-20-17-08b4cd8cba3e40fad4690a10926b255c64683b17cfbda2b3144c006c015081e6.plot
+[2023-04-07 00:00:22 INFO] - 得到了第一张图的大小为84.25242
+[2023-04-07 00:01:47 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-07 00:01:47 INFO] - 等来了第一张图：plot-k32-c1-2023-04-05-20-17-08b4cd8cba3e40fad4690a10926b255c64683b17cfbda2b3144c006c015081e6.plot
+[2023-04-07 00:01:47 INFO] - 得到了第一张图的大小为84.25242
+[2023-04-07 00:08:09 INFO] - UserSet { source_dir_path: "/mnt/temp/final", final_dirs: [FinalDir { path: "/mnt/okchia/070/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/071/new", size: 16.0 }, FinalDir { path: "/mnt/okchia/072/new", size: 16.0 }] }
+[2023-04-07 00:08:09 INFO] - 等来了第一张图：plot-k32-c1-2023-04-05-20-17-08b4cd8cba3e40fad4690a10926b255c64683b17cfbda2b3144c006c015081e6.plot
+[2023-04-07 00:08:09 INFO] - 得到了第一张图的大小为84.25242
