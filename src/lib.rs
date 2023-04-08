@@ -14,15 +14,15 @@ pub use userset::*;
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
     // 获取用户设置
     let user_set = get_user_set().await?;
-    info!("[Thread main]:Get user set:{:?}.", user_set);
+    info!("[Thread main]:Get user set: {:?}.", user_set);
 
     // 获取限制速度
     let hdd_limit_rate = user_set.hdd_limit_rate;
-    debug!("[Thread main]:Draw hdd_limit_rate:{}.", hdd_limit_rate);
+    debug!("[Thread main]:Draw hdd_limit_rate: {}.", hdd_limit_rate);
 
     // 生成分布图及获取 source_dir_path
     let source_dir_path = user_set.source_dir_path.clone();
-    debug!("[Thread main]:Draw source_dir_path:{}", source_dir_path);
+    debug!("[Thread main]:Draw source_dir_path: {}", source_dir_path);
     let s = ShowInfos::new(user_set).await?;
     s.show();
 
@@ -39,8 +39,8 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
         let total_remaining = {
             let show_infos_lock = show_infos.lock().unwrap();
             let result = show_infos_lock.total_remaining().await;
+            info!("[Thread main]:The remaining number of plots is {}", result);
             drop(show_infos_lock);
-            info!("[Thread main]:The remaining number of plots is{}", result);
             result
         };
         if total_remaining == 0 {
@@ -55,30 +55,33 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
         );
 
         // 选择一个plot文件:它不应该正在传输中
-        let choose_plot = {
-            let mut result = String::new();
-            let mut transfering_plots_lock = transfering_plots.lock().unwrap();
+        let choose_plot: Option<String> = {
+            let mut result = None;
+            let transfering_plots_lock = transfering_plots.lock().unwrap();
             for plot in plot_names.iter() {
                 if !transfering_plots_lock.contains(plot) {
-                    result = plot.clone();
+                    result = Some(plot.clone());
                     break;
                 }
             }
-            transfering_plots_lock.push(result.clone());
             drop(transfering_plots_lock);
-            info!(
-                "[Thread main]:Select a plot that has not been transferred:{}",
-                result
-            );
-            debug!(
-                "[Thread main]:Push {} into transfering_plots variable",
-                result
-            );
             result
+        };
+
+        let choose_plot = {
+            match choose_plot {
+                Some(s) => s,
+                None => {
+                    time::sleep(time::Duration::from_secs(10)).await;
+                    info!("[Thread main]:Can`t find a non tranfering plot ,wait for 10 sec and continue");
+                    continue 'wait_plots;
+                }
+            }
         };
 
         // 计算被选择的新plot 文件的大小
         let choose_plot_path = format!("{}/{}", source_dir_path, choose_plot);
+        debug!("[Thread main]:The choose plot path is {}", choose_plot_path);
         let choose_plot_size = get_plot_size(&choose_plot_path).await?;
         info!(
             "[Thread main]:Calculate the size of the selected plot file as {}GB",
@@ -102,6 +105,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
             None => {
                 warn!("[Thread main]:Can`t find the most suitable directory");
                 time::sleep(time::Duration::from_secs(10)).await;
+                continue 'wait_plots;
             }
             Some(final_path) => {
                 info!(
@@ -109,7 +113,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                     final_path
                 );
                 debug!(
-                    "[Thread main]:New thread will be opened:thread[{}]",
+                    "[Thread main]:New thread will be opened:[Thread {}]",
                     final_path
                 );
                 // 开启一个线程
@@ -120,17 +124,29 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                 let handle = task::spawn(async move {
                     // 更新show_infs和transfering_plots
                     {
+                        let mut transfering_plots_lock = transfering_plots.lock().unwrap();
                         let mut transfering_dirs_lock = transfering_dirs.lock().unwrap();
                         let mut show_infos_lock = show_infos.lock().unwrap();
+                        transfering_plots_lock.push(choose_plot.clone());
                         transfering_dirs_lock.push(final_path.clone());
                         show_infos_lock.change_state(&final_path);
                         show_infos_lock.show();
-                        drop(show_infos_lock);
-                        drop(transfering_dirs_lock);
+
                         debug!(
                             "[Thread {}]:Change state to transfering and transfering_dirs updated",
                             final_path
-                        )
+                        );
+                        debug!(
+                            "[Thread {}]:Update the transfering_plots var to {:?}",
+                            final_path, transfering_plots_lock
+                        );
+                        debug!(
+                            "[Thread {}]:Update the transfering_dirs var to {:?}",
+                            final_path, transfering_dirs_lock
+                        );
+                        drop(transfering_plots_lock);
+                        drop(show_infos_lock);
+                        drop(transfering_dirs_lock);
                     }
 
                     // 移动文件 choose_plot_path final_path choose_plot
@@ -222,15 +238,24 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
 
                         // 更新show_info
                         show_infos_lock.change_state(&final_path);
-                        show_infos_lock.update_remaining_size(&final_path, choose_plot_size);
+                        show_infos_lock.add_one_plot(&final_path, choose_plot_size);
                         show_infos_lock.show();
-                        info!("[Thread {}],transfering_plots_lock,transfering_dirs_lock,show_infos_lock updated ,the thread out.", final_path);
+                        info!("[Thread {}]:transfering_plots_lock,transfering_dirs_lock,show_infos_lock updated ,the thread out.", final_path);
+                        debug!(
+                            "[Thread {}]:Update transfering_plots : {:?} ",
+                            final_path, transfering_plots_lock
+                        );
+                        debug!(
+                            "[Thread {}]:Update transfering_dirs:{:?}",
+                            final_path, transfering_dirs_lock
+                        );
                         drop(transfering_plots_lock);
                         drop(transfering_dirs_lock);
                         drop(show_infos_lock);
                     }
                 });
                 handles.push(handle);
+                time::sleep(time::Duration::from_secs(10)).await;
             }
         }
     }

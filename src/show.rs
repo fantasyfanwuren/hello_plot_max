@@ -24,7 +24,7 @@ impl ShowInfos {
         println!("Waiting for the first plot file...");
         let plot_names = wait_polt(&user_set.source_dir_path).await?;
         let plot_name = plot_names[0].clone();
-        info!("等来了第一张图：{}", plot_name);
+        info!("Get the first plot size{}", plot_name);
 
         // 计算第一张new plot文件的大小
         let new_plot_size = {
@@ -143,7 +143,7 @@ impl ShowInfos {
                     }
                 }
             };
-            let transfer_rate = format!("{}M/s", item.transfer_state);
+            let transfer_rate = format!("{}M/s", item.transfer_rate);
             let total_transferde = format!("{}GB", item.total_transfered);
             table.add_row(Row::new(vec![
                 Cell::new(&id.to_string()),
@@ -281,10 +281,11 @@ impl ShowInfos {
         }
     }
 
-    pub fn update_remaining_size(&mut self, dir: &str, new_plot_size: f32) {
+    pub fn add_one_plot(&mut self, dir: &str, new_plot_size: f32) {
         for item in self.0.iter_mut() {
             if item.path == dir.to_owned() {
                 item.remaining_size = item.remaining_size - new_plot_size;
+                item.finished_num += 1;
             }
         }
     }
