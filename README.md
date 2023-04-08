@@ -59,6 +59,7 @@ $ tail -f requests.log
 ```
 
 * set the log
+
 Open the log4rs.yaml file:
 
 ```yaml
