@@ -1,5 +1,6 @@
 {
     "source_dir_path": "/mnt/temp/final",
+    "hdd_limit_rate": 120.0,
     "final_dirs": [
         {
             "path": "/mnt/okchia/070/new",
