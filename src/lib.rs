@@ -165,7 +165,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                     let mut source_file = std::fs::File::open(source_path).unwrap();
                     let mut target_file = std::fs::File::create(target_path).unwrap();
 
-                    let mut buffer = [0; 1024 * 200];
+                    let mut buffer = [0; 1024 * 100];
                     let mut total_bytes = 0;
 
                     let start_time = time::Instant::now();
@@ -218,11 +218,25 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                     // 修改文件名
                     let temp_path = format!("{}/{}", final_path, temp_name);
                     let target_path = format!("{}/{}", final_path, choose_plot);
-                    info!(
-                        "[Thread {}]:将{}重命名为{}",
-                        final_path, temp_path, target_path
-                    );
-                    std::fs::rename(temp_path, target_path).unwrap();
+
+                    // loop 判断文件大小，大小等于源文件大小后再重命名
+                    loop {
+                        let temp_size = get_plot_size(&temp_path).await.unwrap();
+                        if temp_size == choose_plot_size {
+                            info!(
+                                "[Thread {}]:let {} rename to {}",
+                                final_path, temp_path, target_path
+                            );
+                            std::fs::rename(temp_path, target_path).unwrap();
+                            break;
+                        } else {
+                            info!(
+                                "[Thread {}]:Size of the{} is {}Gb, not {}Gb,so wait for 10 sec",
+                                final_path, temp_path, temp_size, choose_plot_size
+                            );
+                            time::sleep(time::Duration::from_secs(10)).await;
+                        }
+                    }
 
                     // 更新多线程三项数据
                     {
