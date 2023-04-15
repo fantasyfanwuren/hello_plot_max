@@ -75,7 +75,8 @@ impl ShowInfos {
                 // 计算最大p盘数量
                 let max_num = {
                     let total_space =
-                        item.size * 1000.0 * 1000.0 * 1000.0 * 1000.0 / 1024.0 / 1024.0 / 1024.0;
+                        item.size * 1000.0 * 1000.0 * 1000.0 * 1000.0 / 1024.0 / 1024.0 / 1024.0
+                            + 2.0;
                     let max_num = total_space / new_plot_size;
                     max_num as usize
                 };
@@ -133,7 +134,7 @@ impl ShowInfos {
         // 内容
         for (id, item) in self.0.iter().enumerate() {
             let state: &str = {
-                if item.finished_num == item.max_num {
+                if item.finished_num >= item.max_num {
                     "Finished"
                 } else {
                     if item.transfer_state {
@@ -193,7 +194,7 @@ impl ShowInfos {
         };
 
         // 判断最大的剩余空间，是否大于被选择的文件大小，若是返回这个目录,不需要删除旧图腾出空间
-        if max_remaining_size > choose_plot_size + 0.3 && !final_path.is_empty() {
+        if max_remaining_size > choose_plot_size && !final_path.is_empty() {
             return Ok(Some(final_path.to_owned()));
         }
 
@@ -231,7 +232,7 @@ impl ShowInfos {
 
         // 循环删除，直到remaining_size>choose_plot_size
         for plot in plots.iter() {
-            if self.0[id].remaining_size > choose_plot_size + 0.3 {
+            if self.0[id].remaining_size > choose_plot_size {
                 return Ok(());
             }
             // 获取删除路径
