@@ -187,7 +187,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                         let elapsed_time = start_time.elapsed().as_secs_f32();
                         let transfer_rate = total_bytes as f32 / elapsed_time / 1024.0 / 1024.0;
 
-                        if read_time % 4000 == 0 {
+                        if read_time % 20000 == 0 {
                             {
                                 let mut show_infos_lock = show_infos.lock().unwrap();
                                 show_infos_lock.updtate_transfering_msg(
