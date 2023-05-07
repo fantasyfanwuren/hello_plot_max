@@ -39,18 +39,21 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
         let total_remaining = {
             let show_infos_lock = show_infos.lock().unwrap();
             let result = show_infos_lock.total_remaining().await;
-            info!("[Thread main]:The remaining number of plots is {}", result);
+            info!(
+                "[Thread main]:🧩The remaining number of plots is {}",
+                result
+            );
             drop(show_infos_lock);
             result
         };
         if total_remaining == 0 {
-            info!("[Thread main]:The remaining number of plots is 0,plot task finished");
+            info!("[Thread main]:⭐The remaining number of plots is 0,plot task finished");
             break 'wait_plots;
         }
         // 等待源目录出现plot文件
         let plot_names = wait_polt(&source_dir_path).await?;
         info!(
-            "[Thread main]:Scan the source path {},get: {:?}",
+            "[Thread main]:👀Scan the source path {},get: {:?}",
             source_dir_path, plot_names
         );
 
@@ -73,7 +76,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                 Some(s) => s,
                 None => {
                     time::sleep(time::Duration::from_secs(10)).await;
-                    info!("[Thread main]:Can`t find a non tranfering plot ,wait for 10 sec and continue");
+                    info!("[Thread main]:🔍Waiting to find a a non tranfering plot...");
                     continue 'wait_plots;
                 }
             }
@@ -81,10 +84,13 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
 
         // 计算被选择的新plot 文件的大小
         let choose_plot_path = format!("{}/{}", source_dir_path, choose_plot);
-        debug!("[Thread main]:The choose plot path is {}", choose_plot_path);
+        info!(
+            "[Thread main]:👉The choose plot path is {}",
+            choose_plot_path
+        );
         let choose_plot_size = get_plot_size(&choose_plot_path).await?;
         info!(
-            "[Thread main]:Calculate the size of the selected plot file as {}GB",
+            "[Thread main]:👉Calculate the size of the selected plot file as {}GB",
             choose_plot_size
         );
 
@@ -103,17 +109,17 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
         // 如果能选出就开启线程，如果不能选出，就等待10秒
         match choose_final_path {
             None => {
-                warn!("[Thread main]:Can`t find the most suitable directory");
+                info!("[Thread main]:🔍Waiting for the most suitable directory");
                 time::sleep(time::Duration::from_secs(10)).await;
                 continue 'wait_plots;
             }
             Some(final_path) => {
                 info!(
-                    "[Thread main]:Find the most suitable directory:{:?}",
+                    "[Thread main]:👉Find the most suitable directory:{:?}",
                     final_path
                 );
                 debug!(
-                    "[Thread main]:New thread will be opened:[Thread {}]",
+                    "[Thread main]:👉New thread will be opened:[Thread {}]",
                     final_path
                 );
                 // 开启一个线程
@@ -212,7 +218,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                     // 删除源文件
                     std::fs::remove_file(&choose_plot_path).unwrap();
                     info!(
-                        "[Thread {}]:{}:Successfully deleted",
+                        "[Thread {}]:{}:🗑Successfully deleted",
                         final_path, choose_plot_path
                     );
                     // 修改文件名
@@ -224,7 +230,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                         let temp_size = get_plot_size(&temp_path).await.unwrap();
                         if temp_size == choose_plot_size {
                             info!(
-                                "[Thread {}]:let {} rename to {}",
+                                "[Thread {}]:📌let {} rename to {}",
                                 final_path, temp_path, target_path
                             );
                             std::fs::rename(temp_path, target_path).unwrap();
@@ -254,7 +260,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                         show_infos_lock.change_state(&final_path);
                         show_infos_lock.add_one_plot(&final_path, choose_plot_size);
                         show_infos_lock.show();
-                        info!("[Thread {}]:transfering_plots_lock,transfering_dirs_lock,show_infos_lock updated ,the thread out.", final_path);
+                        debug!("[Thread {}]:transfering_plots_lock,transfering_dirs_lock,show_infos_lock updated ,the thread out.", final_path);
                         debug!(
                             "[Thread {}]:Update transfering_plots : {:?} ",
                             final_path, transfering_plots_lock

@@ -76,8 +76,9 @@ impl ShowInfos {
                 let max_num = {
                     let total_space =
                         item.size * 1000.0 * 1000.0 * 1000.0 * 1000.0 / 1024.0 / 1024.0 / 1024.0
-                            + 2.0;
+                            + 10.0;
                     let max_num = total_space / new_plot_size;
+
                     max_num as usize
                 };
                 info!(

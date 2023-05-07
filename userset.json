@@ -13,6 +13,18 @@
         {
             "path": "/mnt/okchia/072/new",
             "size": 16.0
+        },
+        {
+            "path": "/mnt/okchia/069/new",
+            "size": 16.0
+        },
+        {
+            "path": "/mnt/okchia/068/plots",
+            "size": 16.0
+        },
+        {
+            "path": "/mnt/okchia/067/new",
+            "size": 16.0
         }
     ]
 }

@@ -5,18 +5,18 @@ use std::panic;
 fn handle_panic(info: &panic::PanicInfo<'_>) {
     if let Some(location) = info.location() {
         error!(
-            "Panic occurred in file '{}' at line {}",
+            "🐞Panic occurred in file '{}' at line {}",
             location.file(),
             location.line(),
         );
     } else {
-        error!("Panic occurred with no location information.");
+        error!("🐞Panic occurred with no location information.");
     }
 
     if let Some(payload) = info.payload().downcast_ref::<String>() {
-        error!("Panic message: {}", payload);
+        error!("🐞Panic message: {}", payload);
     } else {
-        error!("Panic message: <no message>");
+        error!("🐞Panic message: <no message>");
     }
 }
 
